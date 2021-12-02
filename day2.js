@@ -4,6 +4,7 @@ import readline from 'readline';
 async function getData() {
     let horizontal = 0;
     let depth = 0;
+    let aim = 0;
 
     const fileStream = fs.createReadStream('data/day2.txt');
   
@@ -13,13 +14,17 @@ async function getData() {
   
     for await (const line of rl) {
         if (line.includes('forward')) {
-            horizontal += parseInt(line.slice(-1))
+            const units = parseInt(line.slice(-1));
+            horizontal += parseInt(line.slice(-1));
+            depth += aim * units;
         }
         if (line.includes('down')) {
-            depth += parseInt(line.slice(-1))
+            const units = parseInt(line.slice(-1));
+            aim += units;
         }
         if (line.includes('up')) {
-            depth -= parseInt(line.slice(-1))
+            const units = parseInt(line.slice(-1));
+            aim -= units;
         }
     }
     console.log(horizontal * depth);
